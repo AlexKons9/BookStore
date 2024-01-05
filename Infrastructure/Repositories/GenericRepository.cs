@@ -1,7 +1,6 @@
 ﻿using Domain.Abstractions;
-using Domain.RepositoryInterfaces;
+using RepositoryInterfaces;
 using System.Linq.Expressions;
-
 
 namespace Infrastructure.Repositories
 {
