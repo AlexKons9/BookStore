@@ -1,15 +1,15 @@
 ﻿using Database;
 using RepositoryInterfaces;
-using RepositoryInterfaces.RepositoryInterfaces.IManager;
+using RepositoryInterfaces.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Repositories.Manager
+namespace Infrastructure.Repositories
 {
-    public sealed class ManagerRepository : IManagerRepository
+    public sealed class RepositoryManager : IRepositoryManager
     {
         private readonly AppDbContext _context;
         private readonly Lazy<IAuthorRepository> _authorRepository;
@@ -24,7 +24,7 @@ namespace Infrastructure.Repositories.Manager
         public ILineItemRepository LineItemRepository => _lineItemRepository.Value;
         public IOrderRepository OrderRepository => _orderRepository.Value;
 
-        public ManagerRepository(AppDbContext context)
+        public RepositoryManager(AppDbContext context)
         {
             _context = context;
             _authorRepository = new Lazy<IAuthorRepository>(() => new AuthorRepository(_context));

@@ -22,11 +22,11 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Database\Database.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\LoggingService\LoggingService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

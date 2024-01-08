@@ -1,4 +1,6 @@
 ﻿
+using Application.Services.Implementations;
+using Application.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -7,6 +9,7 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddScoped<IServiceManager, ServiceManager>();
             return services;
         }
     }

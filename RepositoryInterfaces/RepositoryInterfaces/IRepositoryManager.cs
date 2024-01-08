@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RepositoryInterfaces.RepositoryInterfaces.IManager
+namespace RepositoryInterfaces.RepositoryInterfaces
 {
-    public interface IManagerRepository
+    public interface IRepositoryManager
     {
         IAuthorRepository AuthorRepository { get; }
         IBookRepository BookRepository { get; }

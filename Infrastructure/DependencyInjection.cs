@@ -1,6 +1,6 @@
-﻿using Infrastructure.Repositories.Manager;
+﻿using Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using RepositoryInterfaces.RepositoryInterfaces.IManager;
+using RepositoryInterfaces.RepositoryInterfaces;
 
 namespace Infrastructure
 {
@@ -8,7 +8,7 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddScoped<IManagerRepository, ManagerRepository>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
             return services;
         }
     }

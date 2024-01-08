@@ -1,7 +1,9 @@
 using Application;
 using Database;
 using Infrastructure;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.HttpOverrides;
+using WebApi.Extensions;
+using NLog;
 
 namespace WebApi
 {
@@ -11,11 +13,14 @@ namespace WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("Default");
-
+            builder.Services.ConfigureCors();
+            builder.Services.ConfigureIISIntegration();
+            builder.Services.ConfigureLoggerService();
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddApplication();
@@ -32,12 +37,15 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles(); 
+            app.UseForwardedHeaders(new ForwardedHeadersOptions 
+            { 
+                ForwardedHeaders = ForwardedHeaders.All 
+            }); 
 
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }
