@@ -2,7 +2,7 @@
 
 namespace RepositoryInterfaces
 {
-    public interface ILineItemRepository : IGenericRepository<LineItem>
+    public interface ILineItemRepository
     {
     }
 }

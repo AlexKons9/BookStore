@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    public class Book : Entity
+    public class Book : ΤEntity
     {
         public string Title { get; set; }
         public string Description { get; set; }

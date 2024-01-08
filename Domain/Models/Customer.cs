@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Customer : Entity
+    public class Customer : ΤEntity
     {
         public string Email { get; set; } 
         public string Name { get; set; }

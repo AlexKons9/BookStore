@@ -2,7 +2,7 @@
 
 namespace RepositoryInterfaces
 {
-    public interface ICustomerRepository : IGenericRepository<Customer>
+    public interface ICustomerRepository 
     {
     }
 }

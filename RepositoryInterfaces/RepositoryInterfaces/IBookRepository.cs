@@ -2,7 +2,7 @@
 
 namespace RepositoryInterfaces
 {
-    public interface IBookRepository : IGenericRepository<Book>
+    public interface IBookRepository
     {
     }
 }

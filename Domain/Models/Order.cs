@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    public class Order : Entity
+    public class Order : ΤEntity
     {
         public Guid CustomerId { get; set; }
         public HashSet<LineItem> LineItems {  get;  set; }

@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    public class Author : Entity
+    public class Author : ΤEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; } 

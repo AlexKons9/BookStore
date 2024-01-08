@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    public class LineItem : Entity
+    public class LineItem : ΤEntity
     {
         public Order Order { get; private set; }
         public Book Book { get; private set; }
