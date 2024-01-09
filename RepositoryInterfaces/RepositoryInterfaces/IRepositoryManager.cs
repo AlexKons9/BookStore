@@ -13,6 +13,6 @@ namespace RepositoryInterfaces.RepositoryInterfaces
         ICustomerRepository CustomerRepository { get; }
         ILineItemRepository LineItemRepository { get; }
         IOrderRepository OrderRepository { get; }
-        Task SaveChangesAsync();
+        void SaveChanges();
     }
 }

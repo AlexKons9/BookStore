@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.ModelsConfiguration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +20,8 @@ namespace Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Call IdentityDbContext onModelCreating method to insert IdentityTables
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new AuthorConfiguration());
         }
     }
 }

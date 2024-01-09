@@ -1,11 +1,8 @@
 ﻿using Database;
 using Domain.Models;
 using RepositoryInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+
 
 namespace Infrastructure.Repositories
 {
@@ -13,6 +10,31 @@ namespace Infrastructure.Repositories
     {
         public AuthorRepository(AppDbContext context) : base(context)
         {
+        }
+
+        public IEnumerable<Author> GetAllAuthors(bool trackChanges)
+        {
+            return GetAll(trackChanges).OrderBy(x => x.LastName).ToList();
+        }
+
+        public Author GetAuthorByCondition(Expression<Func<Author, bool>> expression, bool trackChanges)
+        {
+            return GetByCondition(expression, trackChanges).FirstOrDefault();
+        }
+
+        public void CreateAuthor(Author author)
+        {
+            Create(author);
+        }
+
+        public void UpdateAuthor(Author author)
+        {
+            Update(author);
+        }
+
+        public void DeleteAuthor(Author author)
+        {
+            Delete(author);
         }
     }
 }
