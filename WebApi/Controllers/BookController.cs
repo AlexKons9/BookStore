@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Services.Interfaces;
+using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApi.Controllers
 {
@@ -8,36 +10,106 @@ namespace WebApi.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        // GET: api/<BookController>
+        private readonly IServiceManager _service;
+
+        public BookController(IServiceManager service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetBooks()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var books = _service.BookService.GetAllBooks(false);
+                return Ok(books);
+            }
+            catch
+            {
+                return StatusCode(500, new { Value = "Internal server error." });
+            }
         }
 
-        // GET api/<BookController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetBookById(Guid id)
         {
-            return "value";
+            try
+            {
+                var book = _service.BookService.GetBookById(id,true);
+                return Ok(book);
+            }
+            catch
+            {
+                return StatusCode(500, new { Value = "Internal server error." });
+            }
         }
 
-        // POST api/<BookController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult PostBook([FromBody] Book book)
         {
+            try
+            {
+                if (book == null)
+                {
+                    return BadRequest(new { Value = "Book data is null." });
+                }
+
+                _service.BookService.CreateBook(book);
+                return CreatedAtAction("GetBookById", new { id = book.Id }, book);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
 
-        // PUT api/<BookController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult PutBook(Guid id, [FromBody] Book book)
         {
+            try
+            {
+                if (book == null)
+                {
+                    return BadRequest(new { Value = "Book data is null." });
+                }
+
+                var existingBook = _service.BookService.GetBookById(id, true);
+
+                if (existingBook == null)
+                {
+                    return NotFound(new { Value = $"Book with ID {id} not found." });
+                }
+
+                _service.BookService.UpdateBook(existingBook);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
 
-        // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeleteBook(Guid id)
         {
+            try
+            {
+                var existingBook = _service.BookService.GetBookById(id, true);
+
+                if (existingBook == null)
+                {
+                    return NotFound(new { Value = $"Book with ID {id} not found." });
+                }
+
+                // Replace the logic to delete the existing book using the service
+                _service.BookService.DeleteBook(existingBook);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Application.Services.Interfaces
     public interface ILineItemService
     {
         IEnumerable<LineItem> GetAllLineItems(bool trackChanges);
-        Book GetLineItemById(Guid Id, bool trackChanges);
+        LineItem GetLineItemById(Guid Id, bool trackChanges);
         void CreateLineItem(LineItem lineItem);
         void UpdateLineItem(LineItem lineItem);
         void DeleteLineItem(LineItem lineItem);

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using Application.Services.Interfaces;
+using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
 
 namespace WebApi.Controllers
 {
@@ -8,36 +10,105 @@ namespace WebApi.Controllers
     [ApiController]
     public class LineItemController : ControllerBase
     {
-        // GET: api/<LineItemController>
+        private readonly IServiceManager _service;
+
+        public LineItemController(IServiceManager service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetLineItems()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var lineItems = _service.LineItemService.GetAllLineItems(false);
+                return Ok(lineItems);
+            }
+            catch
+            {
+                return StatusCode(500, new { Value = "Internal server error." });
+            }
         }
 
-        // GET api/<LineItemController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetLineItemById(Guid id)
         {
-            return "value";
+            try
+            {
+                var lineItem = _service.LineItemService.GetLineItemById(id, true);
+                return Ok(lineItem);
+            }
+            catch
+            {
+                return StatusCode(500, new { Value = "Internal server error." });
+            }
         }
 
-        // POST api/<LineItemController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult PostLineItem([FromBody] LineItem lineItem)
         {
+            try
+            {
+                if (lineItem == null)
+                {
+                    return BadRequest(new { Value = "LineItem data is null." });
+                }
+
+                _service.LineItemService.CreateLineItem(lineItem);
+                return CreatedAtAction("GetLineItemById", new { id = lineItem.Id }, lineItem);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
 
-        // PUT api/<LineItemController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult PutLineItem(Guid id, [FromBody] LineItem lineItem)
         {
+            try
+            {
+                if (lineItem == null)
+                {
+                    return BadRequest(new { Value = "LineItem data is null." });
+                }
+
+                var existingLineItem = _service.LineItemService.GetLineItemById(id, true);
+
+                if (existingLineItem == null)
+                {
+                    return NotFound(new { Value = $"LineItem with ID {id} not found." });
+                }
+
+                _service.LineItemService.UpdateLineItem(existingLineItem);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
 
-        // DELETE api/<LineItemController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeleteLineItem(Guid id)
         {
+            try
+            {
+                var existingLineItem = _service.LineItemService.GetLineItemById(id, true);
+
+                if (existingLineItem == null)
+                {
+                    return NotFound(new { Value = $"LineItem with ID {id} not found." });
+                }
+
+                _service.LineItemService.DeleteLineItem(existingLineItem);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
     }
 }

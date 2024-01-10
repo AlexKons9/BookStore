@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using Application.Services.Interfaces;
+using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace WebApi.Controllers
 {
@@ -8,36 +9,105 @@ namespace WebApi.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        // GET: api/<OrderController>
+        private readonly IServiceManager _service;
+
+        public OrderController(IServiceManager service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetOrders()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var orders = _service.OrderService.GetAllOrders(false);
+                return Ok(orders);
+            }
+            catch
+            {
+                return StatusCode(500, new { Value = "Internal server error." });
+            }
         }
 
-        // GET api/<OrderController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetOrderById(Guid id)
         {
-            return "value";
+            try
+            {
+                var order = _service.OrderService.GetOrderById(id, true);
+                return Ok(order);
+            }
+            catch
+            {
+                return StatusCode(500, new { Value = "Internal server error." });
+            }
         }
 
-        // POST api/<OrderController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult PostOrder([FromBody] Order order)
         {
+            try
+            {
+                if (order == null)
+                {
+                    return BadRequest(new { Value = "Order data is null." });
+                }
+
+                _service.OrderService.CreateOrder(order);
+                return CreatedAtAction("GetOrderById", new { id = order.Id }, order);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
 
-        // PUT api/<OrderController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult PutOrder(Guid id, [FromBody] Order order)
         {
+            try
+            {
+                if (order == null)
+                {
+                    return BadRequest(new { Value = "Order data is null." });
+                }
+
+                var existingOrder = _service.OrderService.GetOrderById(id, true);
+
+                if (existingOrder == null)
+                {
+                    return NotFound(new { Value = $"Order with ID {id} not found." });
+                }
+
+                _service.OrderService.UpdateOrder(existingOrder);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
 
-        // DELETE api/<OrderController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeleteOrder(Guid id)
         {
+            try
+            {
+                var existingOrder = _service.OrderService.GetOrderById(id, true);
+
+                if (existingOrder == null)
+                {
+                    return NotFound(new { Value = $"Order with ID {id} not found." });
+                }
+
+                _service.OrderService.DeleteOrder(existingOrder);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
     }
 }

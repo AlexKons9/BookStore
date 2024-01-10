@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using Application.Services.Interfaces;
+using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace WebApi.Controllers
 {
@@ -8,36 +9,105 @@ namespace WebApi.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        // GET: api/<CustomerController>
+        private readonly IServiceManager _service;
+
+        public CustomerController(IServiceManager service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetCustomers()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var customers = _service.CustomerService.GetAllCustomers(false);
+                return Ok(customers);
+            }
+            catch
+            {
+                return StatusCode(500, new { Value = "Internal server error." });
+            }
         }
 
-        // GET api/<CustomerController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetCustomerById(Guid id)
         {
-            return "value";
+            try
+            {
+                var customer = _service.CustomerService.GetCustomerById(id, true);
+                return Ok(customer);
+            }
+            catch
+            {
+                return StatusCode(500, new { Value = "Internal server error." });
+            }
         }
 
-        // POST api/<CustomerController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult PostCustomer([FromBody] Customer customer)
         {
+            try
+            {
+                if (customer == null)
+                {
+                    return BadRequest(new { Value = "Customer data is null." });
+                }
+
+                _service.CustomerService.CreateCustomer(customer);
+                return CreatedAtAction("GetCustomerById", new { id = customer.Id }, customer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
 
-        // PUT api/<CustomerController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult PutCustomer(Guid id, [FromBody] Customer customer)
         {
+            try
+            {
+                if (customer == null)
+                {
+                    return BadRequest(new { Value = "Customer data is null." });
+                }
+
+                var existingCustomer = _service.CustomerService.GetCustomerById(id, true);
+
+                if (existingCustomer == null)
+                {
+                    return NotFound(new { Value = $"Customer with ID {id} not found." });
+                }
+
+                _service.CustomerService.UpdateCustomer(existingCustomer);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
 
-        // DELETE api/<CustomerController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeleteCustomer(Guid id)
         {
+            try
+            {
+                var existingCustomer = _service.CustomerService.GetCustomerById(id, true);
+
+                if (existingCustomer == null)
+                {
+                    return NotFound(new { Value = $"Customer with ID {id} not found." });
+                }
+
+                _service.CustomerService.DeleteCustomer(existingCustomer);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
+            }
         }
     }
 }
