@@ -1,0 +1,8 @@
+2024-01-09 13:01:37.9854 INFO Got all authors successfully!
+2024-01-09 14:33:15.2492 INFO Got author with Id: 69e29edb-eab1-442d-8946-dc091f8cb456 successfully!
+2024-01-09 16:05:32.9104 INFO Created Author with id: e11906f8-4d66-43e4-975b-de110194c08c successfully!
+2024-01-09 16:05:42.7224 INFO Got all authors successfully!
+2024-01-09 16:12:54.5791 INFO Created Author with id: d09de956-052e-41c9-8f7f-d65897536629 successfully!
+2024-01-09 16:13:00.3974 INFO Got all authors successfully!
+2024-01-09 16:14:17.6511 INFO Got author with Id: d09de956-052e-41c9-8f7f-d65897536629 successfully!
+2024-01-09 16:14:17.6935 INFO Deleted Author with id: d09de956-052e-41c9-8f7f-d65897536629 successfully!
