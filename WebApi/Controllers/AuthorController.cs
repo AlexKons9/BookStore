@@ -57,7 +57,7 @@ namespace WebApi.Controllers
                 }
 
                 _service.AuthorService.CreateAuthor(author);
-                return CreatedAtAction("GetAuthorById", new { id = author.Id }, author);
+                return Ok();
             }
             catch
             {
