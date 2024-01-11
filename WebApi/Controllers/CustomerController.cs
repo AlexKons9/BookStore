@@ -57,7 +57,7 @@ namespace WebApi.Controllers
                 _service.CustomerService.CreateCustomer(customer);
                 return CreatedAtAction("GetCustomerById", new { id = customer.Id }, customer);
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -83,7 +83,7 @@ namespace WebApi.Controllers
                 _service.CustomerService.UpdateCustomer(existingCustomer);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -104,7 +104,7 @@ namespace WebApi.Controllers
                 _service.CustomerService.DeleteCustomer(existingCustomer);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }

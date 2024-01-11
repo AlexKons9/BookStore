@@ -58,7 +58,7 @@ namespace WebApi.Controllers
                 _service.LineItemService.CreateLineItem(lineItem);
                 return CreatedAtAction("GetLineItemById", new { id = lineItem.Id }, lineItem);
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -84,7 +84,7 @@ namespace WebApi.Controllers
                 _service.LineItemService.UpdateLineItem(existingLineItem);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -105,7 +105,7 @@ namespace WebApi.Controllers
                 _service.LineItemService.DeleteLineItem(existingLineItem);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }

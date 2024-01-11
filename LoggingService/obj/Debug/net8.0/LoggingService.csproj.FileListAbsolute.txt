@@ -11,3 +11,16 @@ C:\Users\alexandros.konstanti\source\repos\Xunit_CleanArchitecture_WebApi\Loggin
 C:\Users\alexandros.konstanti\source\repos\Xunit_CleanArchitecture_WebApi\LoggingService\obj\Debug\net8.0\refint\LoggingService.dll
 C:\Users\alexandros.konstanti\source\repos\Xunit_CleanArchitecture_WebApi\LoggingService\obj\Debug\net8.0\LoggingService.pdb
 C:\Users\alexandros.konstanti\source\repos\Xunit_CleanArchitecture_WebApi\LoggingService\obj\Debug\net8.0\ref\LoggingService.dll
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\bin\Debug\net8.0\LoggingService.deps.json
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\bin\Debug\net8.0\LoggingService.dll
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\bin\Debug\net8.0\LoggingService.pdb
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\LoggingService.csproj.AssemblyReference.cache
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\LoggingService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\LoggingService.AssemblyInfoInputs.cache
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\LoggingService.AssemblyInfo.cs
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\LoggingService.csproj.CoreCompileInputs.cache
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\LoggingService.sourcelink.json
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\LoggingService.dll
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\refint\LoggingService.dll
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\LoggingService.pdb
+C:\Users\alexandros.konstanti\source\repos\BookStore\LoggingService\obj\Debug\net8.0\ref\LoggingService.dll

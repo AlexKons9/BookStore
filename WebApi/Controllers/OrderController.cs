@@ -57,7 +57,7 @@ namespace WebApi.Controllers
                 _service.OrderService.CreateOrder(order);
                 return CreatedAtAction("GetOrderById", new { id = order.Id }, order);
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -83,7 +83,7 @@ namespace WebApi.Controllers
                 _service.OrderService.UpdateOrder(existingOrder);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -104,7 +104,7 @@ namespace WebApi.Controllers
                 _service.OrderService.DeleteOrder(existingOrder);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }

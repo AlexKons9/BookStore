@@ -59,7 +59,7 @@ namespace WebApi.Controllers
                 _service.AuthorService.CreateAuthor(author);
                 return CreatedAtAction("GetAuthorById", new { id = author.Id }, author);
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -85,7 +85,7 @@ namespace WebApi.Controllers
                 _service.AuthorService.UpdateAuthor(existingAuthor);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -106,9 +106,8 @@ namespace WebApi.Controllers
                 _service.AuthorService.DeleteAuthor(existingAuthor);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
-                // Log the exception or handle it as needed
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
         }

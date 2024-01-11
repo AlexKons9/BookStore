@@ -44,14 +44,14 @@ namespace WebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("69e29edb-eab1-442d-8946-dc091f8cb456"),
+                            Id = new Guid("a42a1678-8578-495d-b475-cff6c99443bb"),
                             Biography = "William Shakespeare (bapt.Tooltip baptised 26[a] April 1564 – 23 April 1616)[b] was an English playwright, poet and actor. He is widely regarded as the greatest writer in the English language and the world's pre-eminent dramatist.[3][4][5] He is often called England's national poet and the \"Bard of Avon\" (or simply \"the Bard\"). His extant works, including collaborations, consist of some 39 plays, 154 sonnets, three long narrative poems, and a few other verses, some of uncertain authorship. His plays have been translated into every major living language and are performed more often than those of any other playwright.[6] Shakespeare remains arguably the most influential writer in the English language, and his works continue to be studied and reinterpreted.",
                             FirstName = "William",
                             LastName = "Shakespeare"
                         },
                         new
                         {
-                            Id = new Guid("d35775ab-577a-461c-bc5f-2b26c1b2ff6c"),
+                            Id = new Guid("ac5c720d-bd21-4f2d-9dae-c1c79e1914ae"),
                             Biography = "Dame Agatha Mary Clarissa Christie, Lady Mallowan, DBE (née Miller; 15 September 1890 – 12 January 1976) was an English writer known for her 66 detective novels and 14 short story collections, particularly those revolving around fictional detectives Hercule Poirot and Miss Marple. She also wrote the world's longest-running play, the murder mystery The Mousetrap, which has been performed in the West End since 1952. A writer during the \"Golden Age of Detective Fiction\", Christie has been called the \"Queen of Crime\". She also wrote six novels under the pseudonym Mary Westmacott. In 1971, she was made a Dame (DBE) by Queen Elizabeth II for her contributions to literature. Guinness World Records lists Christie as the best-selling fiction writer of all time, her novels having sold more than two billion copies.",
                             FirstName = "Agatha",
                             LastName = "Cristie"
@@ -64,7 +64,7 @@ namespace WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AuthorId")
+                    b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -90,6 +90,41 @@ namespace WebApi.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("368d434f-e257-44d1-900a-2cf0400a305e"),
+                            AuthorId = new Guid("ac5c720d-bd21-4f2d-9dae-c1c79e1914ae"),
+                            Description = "The novel concerns the murder of an American heiress on Le Train Bleu, the titular \"Blue Train\".",
+                            Genre = "Mystery",
+                            ISBN = "9789605170684",
+                            Price = 20m,
+                            QuantityInStock = 0,
+                            Title = "The Mystery of the Blue Train"
+                        },
+                        new
+                        {
+                            Id = new Guid("1cbb57f1-18fe-4a4e-940a-46ee74446cfd"),
+                            AuthorId = new Guid("ac5c720d-bd21-4f2d-9dae-c1c79e1914ae"),
+                            Description = "The elegant train of the 1930s, the Orient Express, is stopped by heavy snowfall. A murder is discovered, and Poirot's trip home to London from the Middle East is interrupted to solve the case.",
+                            Genre = "Crime",
+                            ISBN = "9780007119318",
+                            Price = 14m,
+                            QuantityInStock = 1,
+                            Title = "Murder on the Orient Express"
+                        },
+                        new
+                        {
+                            Id = new Guid("c7b732dd-385e-4218-9799-873d82d1de12"),
+                            AuthorId = new Guid("a42a1678-8578-495d-b475-cff6c99443bb"),
+                            Description = "The novel concerns the murder of an American heiress on Le Train Bleu, the titular \"Blue Train\".",
+                            Genre = "Mystery",
+                            ISBN = "9789605170684",
+                            Price = 20m,
+                            QuantityInStock = 0,
+                            Title = "The Mystery of the Blue Train "
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Customer", b =>
@@ -107,6 +142,20 @@ namespace WebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e02d616f-2d1f-4aa4-9cb6-0c865eb29b49"),
+                            Email = "j.wick@gmail.com",
+                            Name = "John Wick"
+                        },
+                        new
+                        {
+                            Id = new Guid("a918a23b-0b73-41ea-9e2b-9b270bfb5a14"),
+                            Email = "n.smith@gmail.com",
+                            Name = "Nick Smith"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.LineItem", b =>
@@ -115,10 +164,10 @@ namespace WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BookId")
+                    b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("OrderId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
@@ -131,6 +180,15 @@ namespace WebApi.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("LineItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0ae6ea82-63ad-4193-a9a3-ebb912482680"),
+                            BookId = new Guid("1cbb57f1-18fe-4a4e-940a-46ee74446cfd"),
+                            OrderId = new Guid("61f2320e-ef17-4d4a-aaee-9fc8c6489378"),
+                            Price = 14m
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Order", b =>
@@ -144,7 +202,16 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("61f2320e-ef17-4d4a-aaee-9fc8c6489378"),
+                            CustomerId = new Guid("a918a23b-0b73-41ea-9e2b-9b270bfb5a14")
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
@@ -361,7 +428,9 @@ namespace WebApi.Migrations
                 {
                     b.HasOne("Domain.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
                 });
@@ -370,15 +439,30 @@ namespace WebApi.Migrations
                 {
                     b.HasOne("Domain.Models.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("BookId");
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Models.Order", "Order")
                         .WithMany("LineItems")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Book");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Domain.Models.Order", b =>
+                {
+                    b.HasOne("Domain.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

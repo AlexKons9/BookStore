@@ -17,7 +17,7 @@ namespace Domain.ModelsConfiguration
             (
                 new Author
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("a42a1678-8578-495d-b475-cff6c99443bb"),
                     FirstName = "William",
                     LastName = "Shakespeare",
                     Biography = "William Shakespeare (bapt.Tooltip baptised 26[a] April 1564 – " +
@@ -29,11 +29,11 @@ namespace Domain.ModelsConfiguration
                     "and a few other verses, some of uncertain authorship. His plays have been translated " +
                     "into every major living language and are performed more often than those of any " +
                     "other playwright.[6] Shakespeare remains arguably the most influential writer " +
-                    "in the English language, and his works continue to be studied and reinterpreted."
+                    "in the English language, and his works continue to be studied and reinterpreted.",
                 },
                 new Author
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("ac5c720d-bd21-4f2d-9dae-c1c79e1914ae"),
                     FirstName = "Agatha",
                     LastName = "Cristie",
                     Biography = "Dame Agatha Mary Clarissa Christie, Lady Mallowan, DBE (née Miller; " +

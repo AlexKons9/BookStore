@@ -58,7 +58,7 @@ namespace WebApi.Controllers
                 _service.BookService.CreateBook(book);
                 return CreatedAtAction("GetBookById", new { id = book.Id }, book);
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -84,7 +84,7 @@ namespace WebApi.Controllers
                 _service.BookService.UpdateBook(existingBook);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }
@@ -106,7 +106,7 @@ namespace WebApi.Controllers
                 _service.BookService.DeleteBook(existingBook);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, new { Value = "Internal server error." });
             }

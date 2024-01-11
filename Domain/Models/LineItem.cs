@@ -4,9 +4,11 @@ namespace Domain.Models
 {
     public class LineItem : ΤEntity
     {
-        public Order Order { get; private set; }
-        public Book Book { get; private set; }
-        public decimal Price { get; private set; }
+        public Guid OrderId { get; set; }
+        public Order Order { get; set; }
+        public Guid BookId { get; set; }
+        public Book Book { get; set; }
+        public decimal Price { get; set; }
 
     }
 }
