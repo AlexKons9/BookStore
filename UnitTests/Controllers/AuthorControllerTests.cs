@@ -27,6 +27,8 @@ namespace UnitTests.Controllers
             _authorController = new AuthorController(_serviceManager);
         }
 
+        
+
         [Fact]
         public void AuthorController_GetAllAuthors_ReturnSuccess()
         {
@@ -47,7 +49,11 @@ namespace UnitTests.Controllers
         {
             //Arrange
             var id = Guid.NewGuid();
-            var author = A.Fake<Author>();
+            var author = new Author
+            {
+                Biography = ""
+            };
+
             A.CallTo(() => _serviceManager.AuthorService.GetAuthorById(id, true)).Returns(author);
 
             //Act
@@ -121,7 +127,7 @@ namespace UnitTests.Controllers
 
             // Assert
             result.Should().BeOfType<ObjectResult>().Which
-                .Should().BeEquivalentTo(expectedObject);
+                  .Should().BeEquivalentTo(expectedObject);
         }
     }
 }
